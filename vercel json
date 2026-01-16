@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/pair",
+      "destination": "http://your-katabump-ip:3000/pair"
+    }
+  ]
+}
