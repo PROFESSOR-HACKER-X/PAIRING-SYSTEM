@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KILLER MD - PREMIUM PAIRING</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap');
+
+        :root { 
+            --primary: #ff0000; 
+            --bg: #050505; 
+            --glass: rgba(255, 255, 255, 0.05);
+        }
+
+        body {
+            background-color: var(--bg);
+            background-image: radial-gradient(circle at 50% 50%, #1a0000 0%, #050505 100%);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* --- Falling Arrows Animation --- */
+        .arrow-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .falling-arrow {
+            position: absolute;
+            color: rgba(255, 0, 0, 0.15);
+            font-size: 24px;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% {
+                transform: translateY(110vh) rotate(0deg);
+                opacity: 0;
+            }
+        }
+
+        /* --- Main UI Card --- */
+        .glass-card {
+            position: relative;
+            z-index: 10;
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            padding: 40px;
+            border-radius: 30px;
+            text-align: center;
+            width: 380px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 30px rgba(255,0,0,0.1);
+        }
+
+        .logo-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+            object-fit: cover;
+            padding: 5px;
+            box-shadow: 0 0 20px var(--primary);
+        }
+
+        h1 { 
+            font-size: 26px; 
+            font-weight: 800;
+            letter-spacing: 4px; 
+            margin: 10px 0; 
+            color: var(--primary); 
+            text-shadow: 0 0 15px var(--primary); 
+        }
+
+        .sub-text { color: #888; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 30px; }
+
+        .input-group { position: relative; margin-bottom: 20px; }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0,0,0,0.6);
+            border: 1px solid #333;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        input:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(255,0,0,0.2); }
+
+        button {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255,0,0,0.3);
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        button:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(255,0,0,0.5); background: #cc0000; }
+        button:active { transform: scale(0.98); }
+
+        #code-res {
+            margin-top: 25px;
+            display: none;
+            padding: 20px;
+            background: rgba(255,0,0,0.05);
+            border-radius: 15px;
+            border: 1px dashed var(--primary);
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        #pairing-code {
+            font-size: 30px;
+            font-weight: 800;
+            letter-spacing: 8px;
+            color: var(--primary);
+            cursor: pointer;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .footer { font-size: 9px; color: #444; margin-top: 25px; letter-spacing: 1.5px; font-weight: 600; }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .glass-card { width: 90%; padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="arrow-container" id="arrow-box"></div>
+
+    <div class="glass-card">
+        <div class="logo-container">
+            <img src="https://i.ibb.co/60SQq25R/609022849-17895489063382963-1097944440582691215-n.webp" class="logo">
+        </div>
+        <h1>KILLER MD</h1>
+        <p class="sub-text">Multi-Device Pairing System</p>
+        
+        <div class="input-group">
+            <input type="text" id="phone" placeholder="923237533251">
+        </div>
+        
+        <button id="submit-btn" onclick="getCode()">GENERATE PAIRING CODE</button>
+
+        <div id="code-res">
+            <span id="pairing-code" onclick="copyCode()"></span>
+            <p style="font-size: 10px; color: #777;">Click code to copy & enter on WhatsApp</p>
+        </div>
+
+        <div class="footer">POWERED BY PROFESSOR DEATH SYSTEM</div>
+    </div>
+
+    <script>
+        // 1. Arrow Animation Generator
+        const arrowBox = document.getElementById('arrow-box');
+        const arrowIcon = '<i class="fas fa-long-arrow-alt-down"></i>';
+        
+        function createArrow() {
+            const arrow = document.createElement('div');
+            arrow.classList.add('falling-arrow');
+            arrow.innerHTML = arrowIcon;
+            
+            // Random properties
+            const left = Math.random() * 100;
+            const duration = Math.random() * 3 + 2;
+            const size = Math.random() * 20 + 15;
+            const delay = Math.random() * 5;
+
+            arrow.style.left = left + '%';
+            arrow.style.animationDuration = duration + 's';
+            arrow.style.fontSize = size + 'px';
+            arrow.style.animationDelay = delay + 's';
+            
+            arrowBox.appendChild(arrow);
+
+            // Remove arrow after animation
+            setTimeout(() => { arrow.remove(); }, (duration + delay) * 1000);
+        }
+
+        // Initialize arrows
+        for(let i=0; i<30; i++) { setTimeout(createArrow, i * 200); }
+        setInterval(createArrow, 300);
+
+        // 2. Logic Implementation
+        const BACKEND_URL = "https://your-katabump-app.com"; // Replace with your Katabump URL
+
+        async function getCode() {
+            const num = document.getElementById('phone').value.replace(/[^0-9]/g, '');
+            if(!num) return alert("Please enter a valid phone number!");
+            
+            const btn = document.getElementById('submit-btn');
+            const codeRes = document.getElementById('code-res');
+            
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> GENERATING...';
+            btn.disabled = true;
+
+            try {
+                const res = await fetch(`${BACKEND_URL}/pair`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ number: num })
+                });
+                const data = await res.json();
+                
+                if (data.code) {
+                    document.getElementById('pairing-code').innerText = data.code;
+                    codeRes.style.display = 'block';
+                } else {
+                    alert("Failed to generate code. Check Backend.");
+                }
+            } catch (e) {
+                alert("Backend Connection Error! Check Katabump status and CORS.");
+            } finally {
+                btn.innerHTML = 'GENERATE PAIRING CODE';
+                btn.disabled = false;
+            }
+        }
+
+        function copyCode() {
+            const code = document.getElementById('pairing-code').innerText;
+            navigator.clipboard.writeText(code);
+            alert("Code copied! Paste it in WhatsApp Linked Devices.");
+        }
+    </script>
+</body>
+</html>
